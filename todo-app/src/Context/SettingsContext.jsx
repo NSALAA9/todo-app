@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const SettingsContext = React.createContext();
+export const settingsContext = React.createContext();
+
 export default function SettingsProvider(props) {
-  const defaultSettings = {
-    displayItems: 3,
+  const [values, setValues] = useState({});
+  const [list, setList] = useState([]);
+  const [incomplete, setIncomplete] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  let initState = {
+    itemsPerPage: 3,
     hideCompleted: true,
-    sortWord: "difficulty",
+    sort: "difficulty",
+    values,
+    setValues,
+    list,
+    setList,
+    incomplete,
+    setIncomplete,
+    currentPage,
+    setCurrentPage
   };
 
   return (
-    <SettingsContext.Provider value={defaultSettings}>
+    <settingsContext.Provider value={initState}>
       {props.children}
-    </SettingsContext.Provider>
+    </settingsContext.Provider>
   );
 }
