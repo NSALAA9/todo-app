@@ -7,12 +7,10 @@ export default function List({ list, toggleComplete }) {
 const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
 
 
-  const startIndex = (currentPage - 1) * itemsPerPage; //0 ///////// (2-1)*3 = 3
-  const endIndex = startIndex + itemsPerPage; // 3   ///////////// 3+3 = 6
+  const startIndex = (currentPage - 1) * itemsPerPage; 
+  const endIndex = startIndex + itemsPerPage; 
 
-
-  const itemsToDisplay = list.slice(startIndex, endIndex); //(0,3) ////////////// (3,6)
-
+  const itemsToDisplay = list.slice(startIndex, endIndex); 
  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
