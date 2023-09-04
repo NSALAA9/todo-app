@@ -22,7 +22,7 @@ const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
         <div key={item.id}>
           <p>{item.text}</p>
           <p>
-            <small>Assigned to: {item.assignee}</small>
+            <small>Assigned to: {item.assigne}</small>
           </p>
           <p>
             <small>Difficulty: {item.difficulty}</small>
