@@ -4,7 +4,8 @@ import useForm from "../../hooks/form.js";
 import { v4 as uuid } from "uuid";
 import { settingsContext } from "../../Context/SettingsContext.jsx";
 import List from "../List";
-
+import { Paper, Input, Button, Slider, Text } from '@mantine/core';
+import './styles.scss'
 
 const Todo = () => {
   const {list,setList,incomplete,setIncomplete} = useContext(settingsContext);
@@ -12,8 +13,6 @@ const Todo = () => {
   const [defaultValues] = useState({
     difficulty: 4,
   });
-  // const [list, setList] = useState([]);
-  // const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
@@ -51,72 +50,82 @@ const Todo = () => {
 
   return (
     <>
+    <div className="all">
       <header data-testid="todo-header">
         <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
       </header>
 
+      <Paper
+      padding="lg"
+      shadow="xl"
+      style={{
+        width: '300px',
+        height: '500px',
+        marginLeft: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px', 
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <h2>Add To Do Item</h2>
 
-        <label>
-          <span>To Do Item</span>
-          <input
+        <div style={{ width: '100%', marginBottom: '10px' }}>
+          <Text align="left" size="m">
+            To Do Item
+          </Text>
+          <Input
+            style={{ borderRadius: '10px', borderWidth: '2px', width: '100%' }}
             onChange={handleChange}
             name="text"
-            type="text"
             placeholder="Item Details"
+            required
           />
-        </label>
+        </div>
 
-        <label>
-          <span>Assigned To</span>
-          <input
+        <div style={{ width: '100%', marginBottom: '10px' }}>
+          <Text align="left" size="m">
+            Assigned To
+          </Text>
+          <Input
+            style={{ borderRadius: '8px', borderWidth: '2px', width: '100%' }}
             onChange={handleChange}
-            name="assignee"
-            type="text"
+            name="assigne"
             placeholder="Assigne Name"
+            required
           />
-        </label>
+        </div>
 
-        <label>
-          <span>Difficulty</span>
-          <input
-            onChange={handleChange}
+        <div style={{ width: '100%', marginBottom: '10px' }}>
+          <Text align="left" size="m">
+            Difficulty
+          </Text>
+          <Slider
+            onChange={(value) => handleChange({ target: { name: 'difficulty', value } })}
             defaultValue={defaultValues.difficulty}
-            type="range"
             min={1}
             max={5}
-            name="difficulty"
           />
-        </label>
+        </div>
 
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
+        <Button type="submit" variant="filled">
+          Add Item
+        </Button>
       </form>
+    </Paper>
 
-      <List list = {list} toggleComplete={toggleComplete}>
+      <List list = {list} toggleComplete={toggleComplete} deleteItem={deleteItem}>
        
 
-        {/* {list.map((item) => (
-          <div key={item.id}>
-            <p>{item.text}</p>
-            <p>
-              <small>Assigned to: {item.assigne}</small>
-            </p>
-            <p>
-              <small>Difficulty: {item.difficulty}</small>
-            </p>
-            <div onClick={() => toggleComplete(item.id)}>
-              Complete: {item.complete.toString()}
-            </div>
-            <hr />
-          </div>
-        ))} */}
+ 
 
 
         </List>
+        </div>
     </>
+
   );
 };
 

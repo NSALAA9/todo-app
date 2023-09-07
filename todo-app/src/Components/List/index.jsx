@@ -1,9 +1,9 @@
+
 import React, { useContext } from 'react';
 import { Pagination } from '@mantine/core';
 import { settingsContext } from "../../Context/SettingsContext";
 
 export default function List({ list, toggleComplete }) {
-
 const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
 
 
@@ -11,6 +11,7 @@ const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
   const endIndex = startIndex + itemsPerPage; 
 
   const itemsToDisplay = list.slice(startIndex, endIndex); 
+
  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -22,7 +23,7 @@ const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
         <div key={item.id}>
           <p>{item.text}</p>
           <p>
-            <small>Assigned to: {item.assigne}</small>
+            <small>Assigned to: {item.assignee}</small>
           </p>
           <p>
             <small>Difficulty: {item.difficulty}</small>
@@ -43,7 +44,7 @@ const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
           styles={(theme) => ({
             control: {
               '&[data-active]': {
-                backgroundImage: theme.fn.gradient({ from: 'red', to: 'yellow' }),
+                backgroundImage: theme.fn.gradient({ from: 'blue', to: 'black' }),
                 border: 0,
               },
             },
