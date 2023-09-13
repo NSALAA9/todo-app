@@ -1,10 +1,12 @@
-
-import "./Header.scss"
+import "./Header.scss";
 
 function Header() {
-  return <header>
-    <h2>Home</h2>
-  </header>;
+  return (
+    <header className="h1">
+      <a href="/"> Home</a>
+      <a href="/settings"> Settings</a>
+    </header>
+  );
 }
 
 export default Header;
