@@ -13,11 +13,12 @@ const Todo = () => {
   const [defaultValues] = useState({
     difficulty: 4,
   });
+
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
     item.id = uuid();
-    item.complete = false;
+    item.complete = 'pending';
     console.log(item);
     setList([...list, item]);
   }
@@ -27,7 +28,7 @@ const Todo = () => {
     setList(items);
   }
 
-  function toggleComplete(id) {
+  function toggleDelete(id) {
     const items = list.map((item) => {
       if (item.id === id) {
         item.complete = !item.complete;
@@ -39,8 +40,20 @@ const Todo = () => {
     deleteItem(id)
   }
 
+  function toggleComplete(id) {
+    const items = list.map((item) => {
+      if (item.id === id) {
+        item.complete = item.complete === 'pending' ? 'complete' : 'pending';
+        setIncomplete(item.complete)
+      }
+      return item;
+    });
+ setList(items);
+ 
+  }
+
   useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
+    let incompleteCount = list.filter((item) => item.complete && item.complete === 'pending').length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
     // linter will want 'incomplete' added to dependency array unnecessarily.
@@ -92,8 +105,8 @@ const Todo = () => {
           <Input
             style={{ borderRadius: '8px', borderWidth: '2px', width: '100%' }}
             onChange={handleChange}
-            name="assigne"
-            placeholder="Assigne Name"
+            name="assignee"
+            placeholder="Assignee Name"
             required
           />
         </div>
@@ -116,10 +129,8 @@ const Todo = () => {
       </form>
     </Paper>
 
-      <List list = {list} toggleComplete={toggleComplete} deleteItem={deleteItem}>
+      <List list = {list} toggleComplete={toggleComplete} deleteItem={deleteItem} toggleDelete={toggleDelete}>
        
-
- 
 
 
         </List>
